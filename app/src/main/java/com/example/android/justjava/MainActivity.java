@@ -26,17 +26,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    int quantity=0;
+    int quantity=0,price;
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
 
-        String priceMessage="Total : $" + (quantity*5) + "\n Thank You!!";
+        price=calculatePrice(quantity);
+        String priceMessage=createOrderSummary(price);
         displayMessage(priceMessage);
-        /**displayPrice(quantity*5);
-        String message="\nThank You!!";
-        *displayMessage(message);*/
+
     }
 
     public void increment(View view){
@@ -58,19 +57,19 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + number);
     }
 
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    private String createOrderSummary(int price){
+        String OrderSummary="Name : Sherlock Holmes\nQuantity : "+quantity+"\nTotal : $"+price+"\nThank You!";
+        return OrderSummary;
     }
-
     /**
      * This method displays the given text on the screen.
      */
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.orderSummary_text_view);
+        orderSummaryTextView.setText(message);
+    }
+
+    private int calculatePrice(int num){
+        return num*5;
     }
 }
